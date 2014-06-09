@@ -4,7 +4,7 @@
   <title><![CDATA[OSSっていまさら古いか？ｗ]]></title>
   <link href="http://murachi1208.github.io/atom.xml" rel="self"/>
   <link href="http://murachi1208.github.io/"/>
-  <updated>2014-06-09T14:13:00+00:00</updated>
+  <updated>2014-06-09T14:53:42+00:00</updated>
   <id>http://murachi1208.github.io/</id>
   <author>
     <name><![CDATA[murachi1208]]></name>
@@ -22,6 +22,9 @@
 
 <p>plugin フォルダに、「gist.inc.php」ファイルを作成
 pukiwiki.ini.php を編集し PKWK_ALLOW_JAVASCRIPT = 1 に設定</p>
+
+<!-- more -->
+
 
 <h3>pukiwikiにはりつけ</h3>
 
@@ -47,6 +50,9 @@ pukiwiki.ini.php を編集し PKWK_ALLOW_JAVASCRIPT = 1 に設定</p>
     <content type="html"><![CDATA[<h2>git config</h2>
 
 <p>git clone したあと Windowsでファイルを編集後に push したら全行が更新対象になったでござる。まあWindowsとUnixでの改行コードが違うあれで少し困ったってなったのでその解決策です。</p>
+
+<!-- more -->
+
 
 <p>基本的にUnixがメインとなるので特にこだわりが無ければ改行コードは「LF」にしておきます。</p>
 
