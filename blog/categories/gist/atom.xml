@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[OSSっていまさら古いか？ｗ]]></title>
-  <link href="http://murachi1208.github.io/atom.xml" rel="self"/>
+  <title><![CDATA[Category: Gist | OSSっていまさら古いか？ｗ]]></title>
+  <link href="http://murachi1208.github.io/blog/categories/gist/atom.xml" rel="self"/>
   <link href="http://murachi1208.github.io/"/>
   <updated>2014-06-09T14:10:02+00:00</updated>
   <id>http://murachi1208.github.io/</id>
@@ -27,15 +27,17 @@ pukiwiki.ini.php を編集し PKWK_ALLOW_JAVASCRIPT = 1 に設定</p>
 
 <p>あとは、貼り付けたいGits のEmbed this gist部分のscript部分をちょいと参考にして</p>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;script src="https://gist.github.com/makotokw/231844.js"&gt;&lt;/script&gt;
-</span><span class='line'>↓
-</span><span class='line'>#gist(makotokw/231844);
-</span><span class='line'>とするだけ</span></code></pre></td></tr></table></div></figure>
+<p>```</p>
 
+<script src="https://gist.github.com/makotokw/231844.js"></script>
+
+
+<p>↓</p>
+
+<h1>gist(makotokw/231844);</h1>
+
+<p>とするだけ
+```</p>
 ]]></content>
   </entry>
   
