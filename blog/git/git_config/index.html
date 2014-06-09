@@ -5,12 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>OSSっていまさら古いか？ｗ</title>
+  <title>Git の改行でちょっとだけハマったのでメモ - OSSっていまさら古いか？ｗ</title>
   <meta name="author" content="murachi1208">
 
   
-  <meta name="description" content="pukiwikiの設定 plugin フォルダに、「gist.inc.php」ファイルを作成
-pukiwiki.ini.php を編集し PKWK_ALLOW_JAVASCRIPT = 1 に設定 pukiwikiにはりつけ あとは、貼り付けたいGits のEmbed this &hellip;">
+  <meta name="description" content="git config git clone したあと Windowsでファイルを編集後に push したら全行が更新対象になったでござる。まあWindowsとUnixでの改行コードが違うあれで少し困ったってなったのでその解決策です。 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -19,7 +18,7 @@ pukiwiki.ini.php を編集し PKWK_ALLOW_JAVASCRIPT = 1 に設定 pukiwikiには
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://murachi1208.github.io">
+  <link rel="canonical" href="http://murachi1208.github.io/blog/git/git_config">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="OSSっていまさら古いか？ｗ" type="application/atom+xml">
@@ -65,68 +64,12 @@ pukiwiki.ini.php を編集し PKWK_ALLOW_JAVASCRIPT = 1 に設定 pukiwikiには
 </nav>
   <div id="main">
     <div id="content">
-      <div class="blog-index">
+      <div>
+<article class="hentry" role="article">
   
-  
-  
-    <article>
-      
   <header>
     
-      <h1 class="entry-title"><a href="/blog/gist/new-git-pukiwiki/">Gistはじめてみました、そしてpukiwikiに</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-06-09T13:51:27+00:00" pubdate data-updated="true">Jun 9<span>th</span>, 2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h3>pukiwikiの設定</h3>
-
-<p>plugin フォルダに、「gist.inc.php」ファイルを作成
-pukiwiki.ini.php を編集し PKWK_ALLOW_JAVASCRIPT = 1 に設定</p>
-
-<h3>pukiwikiにはりつけ</h3>
-
-<p>あとは、貼り付けたいGits のEmbed this gist部分のscript部分をちょいと参考にして</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;script src="https://gist.github.com/makotokw/231844.js"&gt;&lt;/script&gt;
-</span><span class='line'>↓
-</span><span class='line'>#gist(makotokw/231844);
-</span><span class='line'>とするだけ</span></code></pre></td></tr></table></div></figure>
-
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/git/git_config/">Git の改行でちょっとだけハマったのでメモ</a></h1>
+      <h1 class="entry-title">Git の改行でちょっとだけハマったのでメモ</h1>
     
     
       <p class="meta">
@@ -149,7 +92,7 @@ pukiwiki.ini.php を編集し PKWK_ALLOW_JAVASCRIPT = 1 に設定</p>
   </header>
 
 
-  <div class="entry-content"><h2>git config</h2>
+<div class="entry-content"><h2>git config</h2>
 
 <p>git clone したあと Windowsでファイルを編集後に push したら全行が更新対象になったでござる。まあWindowsとUnixでの改行コードが違うあれで少し困ったってなったのでその解決策です。</p>
 
@@ -202,18 +145,59 @@ pukiwiki.ini.php を編集し PKWK_ALLOW_JAVASCRIPT = 1 に設定</p>
 
 <p>毎回コマンドを打つ（１回でいいんだけどね）のが面倒なのと、仮想環境を作ったり消したりしているとコマンドをついつい忘れてしまうので仮想環境を作ったときに .gitconfig を作成するように <a href="http://tsuchikazu.net/chef_solo_start/">chef-solo</a> など使って作成しておくのがベストです。</p>
 </div>
+
+
+  <footer>
+    <p class="meta">
+      
   
+
+<span class="byline author vcard">Posted by <span class="fn">murachi1208</span></span>
+
+      
+
+
+
+
+
+
+
+
   
 
 
-    </article>
+<time datetime="2014-06-08T04:52:20+00:00" pubdate data-updated="true">Jun 8<span>th</span>, 2014</time>
+      
+
+<span class="categories">
   
-  <div class="pagination">
+    <a class='category' href='/blog/categories/git/'>git</a>
+  
+</span>
+
+
+    </p>
     
-    <a href="/blog/archives">Blog Archives</a>
-    
-  </div>
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://murachi1208.github.io/blog/git/git_config/" data-via="" data-counturl="http://murachi1208.github.io/blog/git/git_config/" >Tweet</a>
+  
+  
+  
 </div>
+
+    
+    <p class="meta">
+      
+      
+        <a class="basic-alignment right" href="/blog/gist/new-git-pukiwiki/" title="Next Post: Gistはじめてみました、そしてpukiwikiに">Gistはじめてみました、そしてpukiwikiに &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
 <aside class="sidebar">
   
     <section>
@@ -237,6 +221,7 @@ pukiwiki.ini.php を編集し PKWK_ALLOW_JAVASCRIPT = 1 に設定</p>
 
   
 </aside>
+
 
     </div>
   </div>

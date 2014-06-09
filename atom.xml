@@ -4,7 +4,7 @@
   <title><![CDATA[OSSっていまさら古いか？ｗ]]></title>
   <link href="http://murachi1208.github.io/atom.xml" rel="self"/>
   <link href="http://murachi1208.github.io/"/>
-  <updated>2014-06-09T14:10:02+00:00</updated>
+  <updated>2014-06-09T14:13:00+00:00</updated>
   <id>http://murachi1208.github.io/</id>
   <author>
     <name><![CDATA[murachi1208]]></name>
@@ -36,6 +36,66 @@ pukiwiki.ini.php を編集し PKWK_ALLOW_JAVASCRIPT = 1 に設定</p>
 </span><span class='line'>#gist(makotokw/231844);
 </span><span class='line'>とするだけ</span></code></pre></td></tr></table></div></figure>
 
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Git の改行でちょっとだけハマったのでメモ]]></title>
+    <link href="http://murachi1208.github.io/blog/git/git_config/"/>
+    <updated>2014-06-08T04:52:20+00:00</updated>
+    <id>http://murachi1208.github.io/blog/git/git_config</id>
+    <content type="html"><![CDATA[<h2>git config</h2>
+
+<p>git clone したあと Windowsでファイルを編集後に push したら全行が更新対象になったでござる。まあWindowsとUnixでの改行コードが違うあれで少し困ったってなったのでその解決策です。</p>
+
+<p>基本的にUnixがメインとなるので特にこだわりが無ければ改行コードは「LF」にしておきます。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>git config --global core.autocrlf false</span></code></pre></td></tr></table></div></figure>
+
+
+<p>で、ok。</p>
+
+<h2>.gitconfig に保存されている</h2>
+
+<p>autocrlf の設定は「.gitconfig」に設定されています。</p>
+
+<p>Windows(msysgit)の場合は、<code>C:\Users\&lt;ユーザ名\.gitconfig</code> に保存され、Unixの場合は、<code>~/.gitconfig</code> に下記の書式で保存されます。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>[core]
+</span><span class='line'>  quotepath = false</span></code></pre></td></tr></table></div></figure>
+
+
+<p>あといつものお約束コマンドも実行すると。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ git config --global user.name 'your name'
+</span><span class='line'>$ git config --global user.email you@example.com
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>下記のように保存されます。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>[user]
+</span><span class='line'>  name = your name
+</span><span class='line'>  email = you@example.com
+</span><span class='line'>[core]
+</span><span class='line'>  quotepath = false
+</span><span class='line'>  autoCRLF = false</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>chefとか使って</h3>
+
+<p>毎回コマンドを打つ（１回でいいんだけどね）のが面倒なのと、仮想環境を作ったり消したりしているとコマンドをついつい忘れてしまうので仮想環境を作ったときに .gitconfig を作成するように <a href="http://tsuchikazu.net/chef_solo_start/">chef-solo</a> など使って作成しておくのがベストです。</p>
 ]]></content>
   </entry>
   
