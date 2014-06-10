@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Git | OSSっていまさら古いか？ｗ]]></title>
   <link href="http://murachi1208.github.io/blog/categories/git/atom.xml" rel="self"/>
   <link href="http://murachi1208.github.io/"/>
-  <updated>2014-06-09T14:53:42+00:00</updated>
+  <updated>2014-06-10T15:02:49+00:00</updated>
   <id>http://murachi1208.github.io/</id>
   <author>
     <name><![CDATA[murachi1208]]></name>
@@ -12,6 +12,87 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Vagrant + CentOS6.5 + GitLab Omnibus]]></title>
+    <link href="http://murachi1208.github.io/blog/git/gitlab/"/>
+    <updated>2014-06-09T13:51:27+00:00</updated>
+    <id>http://murachi1208.github.io/blog/git/gitlab</id>
+    <content type="html"><![CDATA[<h2>Gitlabって</h2>
+
+<p>GitHubを使用したいがセキュリティの関係とか大人の諸事情（￥）で使えなかったりする場合、GitHubクローンっていうのがあります。その中でも一押しなのが「GitLab」。Omnibus版 を使えばセットアップも簡単だしVagrantだったら…まあそのまま初期運用でも問題なしなのでいつものごとく10分クッキング。</p>
+
+<!-- more -->
+
+
+<h2>前提条件</h2>
+
+<p>Vagrant もしくは、CentOS6.5 の環境を構築済みであること。あと2014/06/10現在のインストール方法です（Omnibus版は頻繁にアップデートされる）。</p>
+
+<h3>RPM のダウンロードと設定</h3>
+
+<p>Omnibus版でも最新版を使いたいって設定ね。まずchefで必要な情報を設定まで行う。</p>
+
+<p><code>
+$ curl -o gitlab-6.9.2_omnibus-1.el6.x86_64.rpm https://downloads-packages.s3.amazonaws.com/centos-6.5/gitlab-6.9.2_omnibus.1-1.el6.x86_64.rpm
+$ sudo yum install openssh-serve
+$ sudo yum install postfix
+$ sudo rpm -i gitlab-6.9.2_omnibus-1.el6.x86_64.rpm
+$ sudo su gitlab-ctl reconfigure
+</code></p>
+
+<h3>Nginx の設定</h3>
+
+<p>ディレクトリが既に存在するときもあるけど。、ああ。手順としてね。</p>
+
+<p><code>
+% sudo mkdir /etc/gitlab
+% sudo vi /etc/gitlab/gitlab.rb
+</code></p>
+
+<h3>/etc/gitlab/gitlab.rb</h3>
+
+<p>えんじんえっくす、をつかうのだよ。<code>sudo vi /etc/gitlab/gitlab.rb</code> を実行して下記の内容をはりつける。</p>
+
+<p><code>
+external_url "http://localhost"
+unicorn["worker_processes"] = 1
+postgresql["shared_buffers"] = "128MB"
+postgresql["effective_cache_size"] = "32MB"
+</code></p>
+
+<h3>再設定と起動</h3>
+
+<p><code>
+% sudo gitlab-ctl reconfigure
+% sudo gitlab-ctl start
+</code></p>
+
+<h3>アクセス</h3>
+
+<p>Nginx は、80で立ち上がるので Vagrant で port fowrd しておく。</p>
+
+<p>```
+config.vm.define :web do |web|</p>
+
+<pre><code>web.vm.network :forwarded_port, guest: 80, host: 9999, host_ip: "127.0.0.1"
+</code></pre>
+
+<p>end
+```</p>
+
+<p>上記の設定だと <code>http://localhost:9999</code> とすれば、アクセス可能。</p>
+
+<h3>初期ユーザでログイン</h3>
+
+<p>GitLab の初期アクセス。</p>
+
+<p><code>
+User: admin@local.host
+Password: 5iveL!fe
+</code></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Git の改行でちょっとだけハマったのでメモ]]></title>
@@ -51,7 +132,7 @@ git config --global core.autocrlf false
 
 <p>```
 $ git config &mdash;global user.name &lsquo;your name&rsquo;
-$ git config &mdash;global user.email <a href="&#x6d;&#x61;&#105;&#x6c;&#x74;&#111;&#58;&#x79;&#111;&#x75;&#x40;&#101;&#120;&#97;&#x6d;&#x70;&#x6c;&#x65;&#46;&#x63;&#111;&#x6d;">&#121;&#111;&#117;&#x40;&#x65;&#x78;&#97;&#109;&#112;&#x6c;&#x65;&#x2e;&#x63;&#x6f;&#x6d;</a></p>
+$ git config &mdash;global user.email <a href="&#109;&#97;&#x69;&#x6c;&#x74;&#111;&#x3a;&#x79;&#x6f;&#x75;&#64;&#101;&#120;&#x61;&#109;&#x70;&#108;&#x65;&#46;&#99;&#x6f;&#109;">&#121;&#x6f;&#117;&#x40;&#x65;&#120;&#x61;&#x6d;&#112;&#x6c;&#101;&#46;&#99;&#x6f;&#109;</a></p>
 
 <p>```</p>
 

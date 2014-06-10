@@ -4,7 +4,7 @@
   <title><![CDATA[OSSっていまさら古いか？ｗ]]></title>
   <link href="http://murachi1208.github.io/atom.xml" rel="self"/>
   <link href="http://murachi1208.github.io/"/>
-  <updated>2014-06-09T14:53:42+00:00</updated>
+  <updated>2014-06-10T15:02:49+00:00</updated>
   <id>http://murachi1208.github.io/</id>
   <author>
     <name><![CDATA[murachi1208]]></name>
@@ -38,6 +38,96 @@ pukiwiki.ini.php を編集し PKWK_ALLOW_JAVASCRIPT = 1 に設定</p>
 </span><span class='line'>↓
 </span><span class='line'>#gist(makotokw/231844);
 </span><span class='line'>とするだけ</span></code></pre></td></tr></table></div></figure>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Vagrant + CentOS6.5 + GitLab Omnibus]]></title>
+    <link href="http://murachi1208.github.io/blog/git/gitlab/"/>
+    <updated>2014-06-09T13:51:27+00:00</updated>
+    <id>http://murachi1208.github.io/blog/git/gitlab</id>
+    <content type="html"><![CDATA[<h2>Gitlabって</h2>
+
+<p>GitHubを使用したいがセキュリティの関係とか大人の諸事情（￥）で使えなかったりする場合、GitHubクローンっていうのがあります。その中でも一押しなのが「GitLab」。Omnibus版 を使えばセットアップも簡単だしVagrantだったら…まあそのまま初期運用でも問題なしなのでいつものごとく10分クッキング。</p>
+
+<!-- more -->
+
+
+<h2>前提条件</h2>
+
+<p>Vagrant もしくは、CentOS6.5 の環境を構築済みであること。あと2014/06/10現在のインストール方法です（Omnibus版は頻繁にアップデートされる）。</p>
+
+<h3>RPM のダウンロードと設定</h3>
+
+<p>Omnibus版でも最新版を使いたいって設定ね。まずchefで必要な情報を設定まで行う。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ curl -o gitlab-6.9.2_omnibus-1.el6.x86_64.rpm https://downloads-packages.s3.amazonaws.com/centos-6.5/gitlab-6.9.2_omnibus.1-1.el6.x86_64.rpm
+</span><span class='line'>$ sudo yum install openssh-serve
+</span><span class='line'>$ sudo yum install postfix
+</span><span class='line'>$ sudo rpm -i gitlab-6.9.2_omnibus-1.el6.x86_64.rpm
+</span><span class='line'>$ sudo su gitlab-ctl reconfigure</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>Nginx の設定</h3>
+
+<p>ディレクトリが既に存在するときもあるけど。、ああ。手順としてね。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>% sudo mkdir /etc/gitlab
+</span><span class='line'>% sudo vi /etc/gitlab/gitlab.rb</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>/etc/gitlab/gitlab.rb</h3>
+
+<p>えんじんえっくす、をつかうのだよ。<code>sudo vi /etc/gitlab/gitlab.rb</code> を実行して下記の内容をはりつける。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>external_url "http://localhost"
+</span><span class='line'>unicorn["worker_processes"] = 1
+</span><span class='line'>postgresql["shared_buffers"] = "128MB"
+</span><span class='line'>postgresql["effective_cache_size"] = "32MB"</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>再設定と起動</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>% sudo gitlab-ctl reconfigure
+</span><span class='line'>% sudo gitlab-ctl start</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>アクセス</h3>
+
+<p>Nginx は、80で立ち上がるので Vagrant で port fowrd しておく。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>config.vm.define :web do |web|
+</span><span class='line'>    web.vm.network :forwarded_port, guest: 80, host: 9999, host_ip: "127.0.0.1"
+</span><span class='line'>end</span></code></pre></td></tr></table></div></figure>
+
+
+<p>上記の設定だと <code>http://localhost:9999</code> とすれば、アクセス可能。</p>
+
+<h3>初期ユーザでログイン</h3>
+
+<p>GitLab の初期アクセス。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>User: admin@local.host
+</span><span class='line'>Password: 5iveL!fe</span></code></pre></td></tr></table></div></figure>
 
 ]]></content>
   </entry>
