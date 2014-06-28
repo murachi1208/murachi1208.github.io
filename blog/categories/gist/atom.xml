@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: Gist | OSSっていまさら古いか？ｗ]]></title>
+  <title><![CDATA[Category: gist | OSSっていまさら古いか？ｗ]]></title>
   <link href="http://murachi1208.github.io/blog/categories/gist/atom.xml" rel="self"/>
   <link href="http://murachi1208.github.io/"/>
-  <updated>2014-06-10T15:02:49+00:00</updated>
+  <updated>2014-06-29T01:59:00+09:00</updated>
   <id>http://murachi1208.github.io/</id>
   <author>
     <name><![CDATA[murachi1208]]></name>
@@ -16,9 +16,9 @@
   <entry>
     <title type="html"><![CDATA[Gistはじめてみました、そしてpukiwikiに]]></title>
     <link href="http://murachi1208.github.io/blog/gist/new-git-pukiwiki/"/>
-    <updated>2014-06-09T13:51:27+00:00</updated>
+    <updated>2014-06-09T22:51:27+09:00</updated>
     <id>http://murachi1208.github.io/blog/gist/new-git-pukiwiki</id>
-    <content type="html"><![CDATA[<h3>pukiwikiの設定</h3>
+    <content type="html"><![CDATA[<h2>pukiwikiの設定</h2>
 
 <p>plugin フォルダに、「gist.inc.php」ファイルを作成
 pukiwiki.ini.php を編集し PKWK_ALLOW_JAVASCRIPT = 1 に設定</p>
